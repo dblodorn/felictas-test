@@ -1,10 +1,13 @@
+import state from './state'
+
 import { loadModels } from "./components/models/models.js";
 
 import { createCamera } from "./components/camera.js";
-import { createCube } from "./components/cube.js";
 import { createScene } from "./components/scene.js";
-import { createPointLights } from "./components/pointLights.js";
-import { createAmbientLights } from "./components/ambientLights.js";
+
+import { createPointLights } from "./components/lights/pointLights.js";
+import { createAmbientLights } from "./components/lights/ambientLights.js";
+import { createDirectionalLights } from "./components/lights/directionalLights.js";
 
 import { createBackground } from "./lib/three-vignette.js";
 
@@ -19,33 +22,17 @@ let loop;
 
 class World {
   constructor(container) {
-    this.state = {
-      
-      // Lights
-      addLights: true,
-      exposure: 1.0,
-      textureEncoding: 'sRGB',
-      ambientIntensity: 0.3,
-      ambientColor: 0xFFFFFF,
-      directIntensity: 0.8 * Math.PI, // TODO(#116)
-      directColor: 0xFFFFFF,
-      bgColor1: "#ffffff",
-      bgColor2: "#353535"
-    };
-
+    console.log(state)
+    
     camera = createCamera();
     scene = createScene();
     renderer = createRenderer(container);
     loop = new Loop(camera, scene, renderer);
     container.append(renderer.domElement);
 
-    const cube = createCube(0.1, -1.25, -1);
-    const cubeTwo = createCube(2, 3.5, 0, 0);
-    loop.updatables.push(cube);
-    loop.updatables.push(cubeTwo);
-
-    const lightPointA = createPointLights();
-    const lightAmbientA = createAmbientLights();
+    const pointLight = createPointLights();
+    const ambientLight = createAmbientLights();
+    const directionalLight = createDirectionalLights();
     /*
     this.vignette = createBackground({
       aspect: camera.aspect,
@@ -55,8 +42,8 @@ class World {
     this.vignette.name = "Vignette";
     this.vignette.renderOrder = -1;
     */
-    scene.add(lightPointA, lightAmbientA);
-
+    camera.add( ambientLight, directionalLight, pointLight );
+    scene.add( camera )
     const resizer = new Resizer(container, camera, renderer);
   }
 
