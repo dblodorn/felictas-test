@@ -20,13 +20,22 @@ let loop;
 class World {
   constructor(container) {
     this.state = {
+      
+      // Lights
+      addLights: true,
+      exposure: 1.0,
+      textureEncoding: 'sRGB',
+      ambientIntensity: 0.3,
+      ambientColor: 0xFFFFFF,
+      directIntensity: 0.8 * Math.PI, // TODO(#116)
+      directColor: 0xFFFFFF,
       bgColor1: "#ffffff",
       bgColor2: "#353535"
     };
 
     camera = createCamera();
     scene = createScene();
-    renderer = createRenderer();
+    renderer = createRenderer(container);
     loop = new Loop(camera, scene, renderer);
     container.append(renderer.domElement);
 
@@ -46,7 +55,7 @@ class World {
     this.vignette.name = "Vignette";
     this.vignette.renderOrder = -1;
     */
-    scene.add(lightPointA, lightAmbientA, cube);
+    scene.add(lightPointA, lightAmbientA);
 
     const resizer = new Resizer(container, camera, renderer);
   }
@@ -65,8 +74,9 @@ class World {
 
   async init() {
     const { model } = await loadModels(
-      "https://media.dmbk.io/fr-models/Segments-Materials-r1b.gltf"
+      "https://media.dmbk.io/fr-models/Segments-Materials-r1b-1.gltf"
     );
+    loop.updatables.push(model);
     scene.add(model);
   }
 }

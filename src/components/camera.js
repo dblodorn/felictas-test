@@ -5,9 +5,9 @@ function createCamera() {
     60, // fov = Field Of View
     window.innerWidth / window.innerHeight, // aspect ratio (dummy value)
     0.01, // near clipping plane
-    1000 // far clipping plane
+    2000 // far clipping plane
   );
-  camera.position.set(0, 0, 20);
+  camera.position.set(0, 300, 300);
 
   return camera;
 }
