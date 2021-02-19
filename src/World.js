@@ -30,14 +30,14 @@ class World {
     loop = new Loop(camera, scene, renderer);
     container.append(renderer.domElement);
 
-    // const cube = createCube(0.1, -1.25, -1);
-    // const cubeTwo = createCube(2, 3.5, 0, 0);
-    // loop.updatables.push(cube);
-    // loop.updatables.push(cubeTwo);
+    const cube = createCube(0.1, -1.25, -1);
+    const cubeTwo = createCube(2, 3.5, 0, 0);
+    loop.updatables.push(cube);
+    loop.updatables.push(cubeTwo);
 
     const lightPointA = createPointLights();
     const lightAmbientA = createAmbientLights();
-
+    /*
     this.vignette = createBackground({
       aspect: camera.aspect,
       grainScale: 0.001, // mattdesl/three-vignette-background#1
@@ -45,8 +45,8 @@ class World {
     });
     this.vignette.name = "Vignette";
     this.vignette.renderOrder = -1;
-
-    scene.add(lightPointA, lightAmbientA);
+    */
+    scene.add(lightPointA, lightAmbientA, cube);
 
     const resizer = new Resizer(container, camera, renderer);
   }
@@ -64,11 +64,12 @@ class World {
   }
 
   async init() {
+    /*
     const { model } = await loadModels(
       "/assets/models/Segments-Materials-r1b-1.gltf"
     );
-
-    scene.add(model);
+    */
+    /// scene.add(model);
   }
 }
 
