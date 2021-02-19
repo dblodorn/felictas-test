@@ -4,11 +4,12 @@ import { setupModel } from "./setupModel.js";
 
 async function loadModels(modelAsset) {
   const loader = new GLTFLoader();
-  // loader.crossOrigin = true;
+  console.log(modelAsset)
+  loader.crossOrigin = true;
   const modelData = await loader.loadAsync(modelAsset);
 
   const model = setupModel(modelData);
-  model.position.set(0, 0, -50);
+  model.position.set(0, -10, 0);
   return { model };
 }
 

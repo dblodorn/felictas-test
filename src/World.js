@@ -64,12 +64,10 @@ class World {
   }
 
   async init() {
-    /*
     const { model } = await loadModels(
-      "/assets/models/Segments-Materials-r1b-1.gltf"
+      "https://media.dmbk.io/fr-models/Segments-Materials-r1b.gltf"
     );
-    */
-    /// scene.add(model);
+    scene.add(model);
   }
 }
 

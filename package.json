@@ -4,7 +4,7 @@
   "description": "fork it and use as a template for your questions or experiments.",
   "main": "index.html",
   "scripts": {
-    "start": "parcel index.html --open",
+    "dev": "parcel index.html --open",
     "build": "parcel build index.html"
   },
   "dependencies": {
@@ -24,12 +24,7 @@
     "since 2017-06"
   ],
   "staticFiles": {
-    "staticPath": [
-      {
-        "staticPath": "assets",
-        "staticOutDir": "assets"
-      }
-    ]
+    "staticPath": ["assets"]
   },
   "keywords": []
 }
