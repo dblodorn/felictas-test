@@ -1,5 +1,6 @@
 export default {
   // Lights
+  clicks: 0,
   lights: {
     addLights: true,
     exposure: 1.0,

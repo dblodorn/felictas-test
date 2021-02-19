@@ -1,13 +1,22 @@
 import {
-  BoxBufferGeometry,
   MathUtils,
-  Mesh,
-  MeshStandardMaterial
+  Box3,
+  Vector3
 } from "three";
 
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 import { setupModel } from "./setupModel.js";
+
+function traverseMaterials (object, callback) {
+  object.traverse((node) => {
+    if (!node.isMesh) return;
+    const materials = Array.isArray(node.material)
+      ? node.material
+      : [node.material];
+    materials.forEach(callback);
+  });
+}
 
 async function loadModels(modelAsset, rotateSpeed) {
   const loader = new GLTFLoader();
@@ -15,21 +24,30 @@ async function loadModels(modelAsset, rotateSpeed) {
   loader.crossOrigin = true;
   const modelData = await loader.loadAsync(modelAsset);
 
-  const model = setupModel(modelData);
-  model.position.set(0, 0, 0);
-  model.rotation.set(0, 0, 0);
+  const model = setupModel(modelData).scene;
+  
+  const box = new Box3().setFromObject(model);
+  const size = box.getSize(new Vector3()).length();
+  const center = box.getCenter(new Vector3());
+  
+  model.position.x += ((model.position.x - center.x));
+  model.position.y += ((model.position.y - center.y));
+  model.position.z += ((model.position.z - center.z));
   
   const radiansPerSecond = MathUtils.degToRad(30);
   const speed = rotateSpeed || .001
 
   model.tick = () => {
-    // increase the model's rotation each frame
     model.rotation.z += radiansPerSecond * speed;
     model.rotation.x += radiansPerSecond * speed;
     model.rotation.y += radiansPerSecond * speed;
   };
   
-  return { model };
+  return { 
+    model,
+    size,
+    center
+  };
 }
 
 export { loadModels };

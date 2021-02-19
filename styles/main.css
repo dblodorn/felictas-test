@@ -1,35 +1,49 @@
+@import './reset.css';
+
+html {
+  font-size: 62.5%;
+}
+
 body {
-  /* remove margins and scroll bars */
   margin: 0;
   overflow: hidden;
-
-  /* style text */
-  text-align: center;
-  font-size: 12px;
+  font-size: 16px;
+  color: black;
   font-family: Sans-Serif;
-  /* color text */
-  color: #444;
-}
-
-h1 {
-  /* position the heading */
-  position: absolute;
-  width: 100%;
-
-  /* make sure that the heading is drawn on top */
-  z-index: 1;
-}
-
-#scene-container {
-  position: absolute;
-  width: 100%;
-  height: 100%;
   background-color: #dbdbdb;
 }
 
-#render-button {
+* {
+  box-sizing: border-box; 
+  outline: 0;
+}
+
+:root {
+  --chat-container-width: 30rem;
+  --chat-container-bg-color: #ffffff;
+}
+
+#scene-container {
   position: fixed;
-  bottom: 10px;
-  left: 10px;
-  z-index: 10000;
+  width: calc(100% - var(--chat-container-width));
+  height: 100%;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  background-color: #dbdbdb;
+  border-right: 1px solid black!important;
+}
+
+canvas:focus {
+  outline: 0!important;
+}
+
+#chat-container {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: var(--chat-container-width);
+  height: 100%;
+  background-color: var(--chat-container-bg-color);
+  padding: 20px;
 }

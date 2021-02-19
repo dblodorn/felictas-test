@@ -1,3 +1,6 @@
+
+import { Interaction } from 'three.interaction';
+
 import state from './state'
 
 import { loadModels } from "./components/models/models.js";
@@ -19,15 +22,17 @@ let camera;
 let renderer;
 let scene;
 let loop;
+let interaction;
 
 class World {
   constructor(container) {
     console.log(state)
     
-    camera = createCamera();
+    camera = createCamera(container);
     scene = createScene();
     renderer = createRenderer(container);
     loop = new Loop(camera, scene, renderer);
+    interaction = new Interaction(renderer, scene, camera);
     container.append(renderer.domElement);
 
     const pointLight = createPointLights();
@@ -60,11 +65,29 @@ class World {
   }
 
   async init() {
-    const { model } = await loadModels(
+    const modelA = await loadModels(
       "https://media.dmbk.io/fr-models/Segments-Materials-r1b-1.gltf"
     );
+    const model = modelA.model
+    // Position Camera to Model Size
+    const size = modelA.size
+    camera.near = size / 100;
+    camera.far = size * 100;
+    camera.updateProjectionMatrix();
+
+    const center = modelA.center
+    camera.position.copy(center);
+    camera.position.x += size / 2.0;
+    camera.position.y += size / 2.0;
+    camera.position.z += size / 2.0;
+    camera.lookAt(center);
+
     loop.updatables.push(model);
     scene.add(model);
+    model.on('click', function(ev) { 
+      state.clicks += 1 
+      console.log(state.clicks)
+    });
   }
 }
 
