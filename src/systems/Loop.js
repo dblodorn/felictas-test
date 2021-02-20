@@ -1,3 +1,4 @@
+import state from './../state'
 import { Clock } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 

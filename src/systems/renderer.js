@@ -1,3 +1,4 @@
+import state from './../state'
 import { WebGLRenderer, sRGBEncoding } from "three";
 
 function createRenderer(container) {
@@ -6,6 +7,7 @@ function createRenderer(container) {
   renderer.outputEncoding = sRGBEncoding;
   renderer.setClearColor(0xcccccc);
   renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.toneMappingExposure = state.lights.exposure;
   renderer.setSize(container.clientWidth, container.clientHeight);
   return renderer;
 }
