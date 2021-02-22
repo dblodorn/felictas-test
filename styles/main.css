@@ -1,4 +1,5 @@
 @import './reset.css';
+@import './animations.css';
 
 html {
   font-size: 62.5%;
@@ -32,6 +33,11 @@ body {
   overflow: hidden;
   background-color: #dbdbdb;
   border-right: 1px solid black!important;
+  opacity: 0;
+}
+
+#scene-container.loaded {
+  opacity: 1;
 }
 
 canvas:focus {

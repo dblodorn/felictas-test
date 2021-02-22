@@ -7,6 +7,7 @@ import {
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 import { setupModel } from "./setupModel.js";
+import state from './../../state';
 
 function traverseMaterials (object, callback) {
   object.traverse((node) => {
@@ -23,7 +24,11 @@ async function loadModels(modelAsset, rotateSpeed) {
   console.log(modelAsset)
   loader.crossOrigin = true;
   const modelData = await loader.loadAsync(modelAsset);
-
+  
+  console.log(state, 'loaded')
+  setTimeout(() => {
+    state.threeContainer.classList.add('loaded')
+  }, 10)
   const model = setupModel(modelData).scene;
   
   const box = new Box3().setFromObject(model);

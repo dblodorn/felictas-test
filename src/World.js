@@ -60,9 +60,10 @@ class World {
 
   async init() {
     const modelA = await loadModels(
-      "https://media.dmbk.io/fr-models/Segments-Materials-r1b-1.gltf"
+      "https://media.dmbk.io/fr-models/Segments-Materials-r2e.gltf"
     );
     const model = modelA.model
+    
     // Position Camera to Model Size
     const size = modelA.size
     camera.near = size / 100;

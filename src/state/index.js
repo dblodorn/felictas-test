@@ -1,6 +1,9 @@
 export default {
   // Lights
   clicks: 0,
+  threeContainer: null,
+  chatContainer: null,
+  loaded: false,
   lights: {
     addLights: true,
     exposure: 3.0,
