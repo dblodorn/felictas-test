@@ -10,6 +10,9 @@ export default {
     directIntensity: 4,
     directColor: 0xFFFFFF,
     bgColor1: "#f5fcfa",
-    bgColor2: "#ff8b54"
+    bgColor2: "#ff8b54",
+    hemisphereSky: '#ffb3f0',
+    hemisphereGround: 0x080820,
+    hemisphereIntensity: 1
   }
 }

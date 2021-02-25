@@ -18,9 +18,9 @@ function traverseMaterials (object, callback) {
   });
 }
 
-async function loadModels(modelAsset, rotateSpeed) {
+async function loadModels(modelAsset, rotateSpeed, position, rotation) {
   const loader = new GLTFLoader();
-  console.log(modelAsset)
+  // console.log(modelAsset)
   loader.crossOrigin = true;
   const modelData = await loader.loadAsync(modelAsset);
 
@@ -30,19 +30,31 @@ async function loadModels(modelAsset, rotateSpeed) {
   const size = box.getSize(new Vector3()).length();
   const center = box.getCenter(new Vector3());
   
-  model.position.x += ((model.position.x - center.x));
-  model.position.y += ((model.position.y - center.y));
-  model.position.z += ((model.position.z - center.z));
-  
+  console.log(size)
+
+  model.position.x += size / 2;
+  model.position.y += size / 2;
+  model.position.z += size / 2;
+
+
   const radiansPerSecond = MathUtils.degToRad(30);
   const speed = rotateSpeed || .001
-
+  /*
   model.tick = () => {
     model.rotation.z += radiansPerSecond * speed;
     model.rotation.x += radiansPerSecond * speed;
     model.rotation.y += radiansPerSecond * speed;
   };
-  
+  */
+  /*
+  model.traverse((node) => {
+    if (node.isLight) {
+      console.log('light')
+    } else if (node.isMesh) {
+      console.log('mesh')
+    }
+  });
+  */
   return { 
     model,
     size,
