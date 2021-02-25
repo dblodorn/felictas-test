@@ -2,13 +2,17 @@
 import { Interaction } from 'three.interaction';
 import {
   Group,
-  Object3D
+  Object3D,
+  Box3,
+  Vector3
 } from 'three'
 
 
 import state from './state'
 
 import { loadModels } from "./components/models/models.js";
+
+import loadSlices from "./components/models/slices.js";
 
 import { createCamera } from "./components/camera.js";
 import { createScene } from "./components/scene.js";
@@ -68,97 +72,58 @@ class World {
   }
 
   async init() {
-    const modelA = await loadModels(
-      "https://media.dmbk.io/fr-models/fr-slices/Felicitas_Slice1_r2b.gltf",
-      0,
-      0,
-      0
-    );
-    const sliceA = modelA.model
+    const {
+      slice1,
+      slice2,
+      slice3,
+      slice4,
+      slice5,
+      slice6
+    } = await loadSlices();
+    console.log('loaded')
 
-    const modelB = await loadModels(
-      "https://media.dmbk.io/fr-models/fr-slices/Felicitas_Slice2_r2b.gltf",
-      0,
-      0,
-      0
-    );
-    const sliceB = modelB.model
-    
-    const modelC = await loadModels(
-      "https://media.dmbk.io/fr-models/fr-slices/Felicitas_Slice3_r2b.gltf",
-      0,
-      0,
-      0
-    );
-    const sliceC = modelC.model
-
-    const modelD = await loadModels(
-      "https://media.dmbk.io/fr-models/fr-slices/Felicitas_Slice4_r2b.gltf",
-      0,
-      0,
-      0
-    );
-    const sliceD = modelD.model
-
-    const modelE = await loadModels(
-      "https://media.dmbk.io/fr-models/fr-slices/Felicitas_Slice5_r2b.gltf",
-      0,
-      0,
-      0
-    );
-    const sliceE = modelE.model
-
-    const modelF = await loadModels(
-      "https://media.dmbk.io/fr-models/fr-slices/Felicitas_Slice6_r2b.gltf",
-      0,
-      0,
-      0,
-    );
-    const sliceF = modelF.model
-  
     const ball = new Object3D();
-    console.log(ball.children)
-    
-    ball.add(sliceA)
-    ball.add(sliceB)
-    ball.add(sliceC)
-    ball.add(sliceD)
-    ball.add(sliceE)
-    ball.add(sliceF)
 
+    slice1.position.z = -50
+
+    slice3.position.z = 25
+    slice3.position.x = -30
+
+    ball.add(slice1)
+    ball.add(slice2)
+    ball.add(slice3)
+    ball.add(slice4)
+    ball.add(slice5)
+    ball.add(slice6)
+
+    const box = new Box3().setFromObject(ball);
+    const size = box.getSize(new Vector3()).length();
+    const center = box.getCenter();
+    console.log(center)
+    ball.translateZ(0)
+    ball.translateY((size / 4) * -1)
     scene.add(ball);
 
-
-    sliceA.on('click', function(e) { 
-      // state.clicks += 1
-      console.log('SLICE A')
-    });
-    sliceB.on('click', function(e) { 
-      // state.clicks += 1
-      console.log('SLICE B')
-    });
-    sliceC.on('click', function(e) { 
-      // state.clicks += 1
-      console.log('SLICE C')
-    });
+    // INTERACTION
+    slice1.on('click', function(e) { state.clicks = "Slice1" });
+    slice2.on('click', function(e) { state.clicks = "Slice2" });
+    slice3.on('click', function(e) { state.clicks = "Slice3" });
+    slice4.on('click', function(e) { state.clicks = "Slice4" });
+    slice5.on('click', function(e) { state.clicks = "Slice5" });
+    slice6.on('click', function(e) { state.clicks = "Slice6" });
     
     // Position Camera to GROUP Size
 
-    // const size = ball.size
-    // console.log(size)
-    /*
+
     camera.near = size / 100;
     camera.far = size * 100;
     camera.updateProjectionMatrix();
-    */
-    // const center = ball.center
-    /*
+
     camera.position.copy(center);
     camera.position.x += size / 2.0;
     camera.position.y += size / 2.0;
     camera.position.z += size / 2.0;
     camera.lookAt(center);
-    */
 
     // environment = await createEnvironment(renderer);
     // scene.environment = environment
