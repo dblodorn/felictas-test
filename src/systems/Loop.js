@@ -15,7 +15,7 @@ class Loop {
 
   start() {
     this.controls.enableRotate = false
-    // LOOP
+
     this.renderer.setAnimationLoop(() => {
       this.tick();
       this.controls.autoRotate = true

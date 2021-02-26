@@ -1,10 +1,7 @@
 
 import { Interaction } from 'three.interaction';
-import {
-  Box3,
-  Vector3
-} from 'three'
-
+import { Box3, Vector3 } from 'three'
+import gsap from 'gsap';
 
 import state from './state'
 import createBall from "./components/models/createBall.js";
@@ -84,6 +81,29 @@ class World {
     camera.position.z += size;
     camera.lookAt(center);
 
+    // TWEEN FUNCTIONS
+    const moveSliceA = () => {
+      gsap.to(slice1.position, .4, {
+        z: -1000,
+        ease: 'Sine.easeIn',
+      })
+      gsap.to(camera.position, 1, {
+        z: 30,
+        ease: 'Sine.easeIn',
+      })
+    }
+
+    const moveSliceB = () => {
+      gsap.to(slice1.position, .4, {
+        z: -50,
+        ease: 'Sine.easeIn',
+      })
+      gsap.to(camera.position, 1, {
+        z: size,
+        ease: 'Sine.easeIn',
+      })
+    }
+
     // INTERACTION
     const slice1 = ball.children[0]
     const slice2 = ball.children[1]
@@ -96,8 +116,16 @@ class World {
     slice3.position.z = 25
     slice3.position.x = -30
 
-    slice1.on('click', function(e) { state.clicks = "Slice1 Click" });
-    slice2.on('click', function(e) { state.clicks = "Slice2 Click" });
+    slice1.on('click', function(e) { 
+      state.clicks = "Slice1 Click"
+      moveSliceA()
+    });
+    
+    slice2.on('click', function(e) { 
+      state.clicks = "Slice2 Click"
+      moveSliceB()
+    });
+    
     slice3.on('click', function(e) { state.clicks = "Slice3 Click" });
     slice4.on('click', function(e) { state.clicks = "Slice4 Click" });
     slice5.on('click', function(e) { state.clicks = "Slice5 Click" });
@@ -109,6 +137,7 @@ class World {
     slice4.on('mouseover', function(e) { state.clicks = "Slice4 Hover" });
     slice5.on('mouseover', function(e) { state.clicks = "Slice5 Hover" });
     slice6.on('mouseover', function(e) { state.clicks = "Slice6 Hover" });
+
   }
 }
 
