@@ -81,29 +81,6 @@ class World {
     camera.position.z += size;
     camera.lookAt(center);
 
-    // TWEEN FUNCTIONS
-    const moveSliceA = () => {
-      gsap.to(slice1.position, .4, {
-        z: -1000,
-        ease: 'Sine.easeIn',
-      })
-      gsap.to(camera.position, 1, {
-        z: 30,
-        ease: 'Sine.easeIn',
-      })
-    }
-
-    const moveSliceB = () => {
-      gsap.to(slice1.position, .4, {
-        z: -50,
-        ease: 'Sine.easeIn',
-      })
-      gsap.to(camera.position, 1, {
-        z: size,
-        ease: 'Sine.easeIn',
-      })
-    }
-
     // INTERACTION
     const slice1 = ball.children[0]
     const slice2 = ball.children[1]
@@ -118,18 +95,99 @@ class World {
 
     slice1.on('click', function(e) { 
       state.clicks = "Slice1 Click"
-      moveSliceA()
+      gsap.to(slice1.position, .4, {
+        z: -1000,
+        ease: 'Sine.easeIn',
+      })
+      gsap.to(camera.position, 1, {
+        z: 30,
+        ease: 'Sine.easeIn',
+      })
     });
     
     slice2.on('click', function(e) { 
       state.clicks = "Slice2 Click"
-      moveSliceB()
+      gsap.to(slice1.position, .4, {
+        z: -50,
+        ease: 'Sine.easeIn',
+      })
+      gsap.to(camera.position, 1, {
+        z: size,
+        ease: 'Sine.easeIn',
+      })
     });
-    
-    slice3.on('click', function(e) { state.clicks = "Slice3 Click" });
-    slice4.on('click', function(e) { state.clicks = "Slice4 Click" });
-    slice5.on('click', function(e) { state.clicks = "Slice5 Click" });
-    slice6.on('click', function(e) { state.clicks = "Slice6 Click" });
+
+    slice3.on('click', function(e) { 
+      state.clicks = "Slice3 Click"
+      gsap.to(slice1.position, .4, {
+        z: -50,
+        ease: 'Sine.easeIn',
+      })
+      gsap.to(slice3.position, .4, {
+        z: -50,
+        ease: 'Sine.easeIn',
+      })
+      gsap.to(camera.position, 1, {
+        z: size / 2,
+        x: size / 2,
+        ease: 'Sine.easeIn',
+      })
+    });
+
+    slice4.on('click', function(e) { 
+      state.clicks = "Slice3 Click"
+      gsap.to(slice1.position, .4, {
+        z: 0,
+        ease: 'Sine.easeIn',
+      })
+      gsap.to(slice3.position, .4, {
+        z: 0,
+        ease: 'Sine.easeIn',
+      })
+      gsap.to(camera.position, 1, {
+        z: size * 2,
+        x: size / 2,
+        ease: 'Sine.easeIn',
+      })
+    });
+
+    slice5.on('click', function(e) { 
+      state.clicks = "Slice3 Click"
+      gsap.to(slice1.position, .4, {
+        z: -100,
+        ease: 'Sine.easeIn',
+      })
+      gsap.to(slice2.position, .4, {
+        z: -100,
+        ease: 'Sine.easeIn',
+      })
+      gsap.to(camera.position, 1, {
+        z: size,
+        x: size / 2,
+        ease: 'Sine.easeIn',
+      })
+    });
+
+    slice6.on('click', function(e) { 
+      state.clicks = "Slice3 Click"
+      gsap.to(slice1.position, .4, {
+        z: -100,
+        ease: 'Sine.easeIn',
+      })
+      gsap.to(slice3.position, .1, {
+        z: 0,
+        ease: 'Sine.easeIn',
+      })
+      gsap.to(slice4.position, .4, {
+        z: -100,
+        ease: 'Sine.easeIn',
+      })
+      gsap.to(camera.position, 1, {
+        z: size * 3,
+        x: size / 2,
+        ease: 'Sine.easeIn',
+      })
+    });
 
     slice1.on('mouseover', function(e) { state.clicks = "Slice1 Hover" });
     slice2.on('mouseover', function(e) { state.clicks = "Slice2 Hover" });
