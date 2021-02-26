@@ -1,23 +1,17 @@
 
 import { Interaction } from 'three.interaction';
 import {
-  Group,
-  Object3D,
   Box3,
   Vector3
 } from 'three'
 
 
 import state from './state'
-
-import { loadModels } from "./components/models/models.js";
-
-import loadSlices from "./components/models/slices.js";
+import createBall from "./components/models/createBall.js";
 
 import { createCamera } from "./components/camera.js";
 import { createScene } from "./components/scene.js";
 import { createVignette } from "./components/vignette"
-import { createEnvironment } from "./components/createEnvironment"
 
 import { createPointLights } from "./components/lights/pointLights.js";
 import { createAmbientLights } from "./components/lights/ambientLights.js";
@@ -34,7 +28,6 @@ let scene;
 let loop;
 let interaction;
 let background;
-let environment;
 class World {
   constructor(container) {
     camera = createCamera(container);
@@ -72,48 +65,14 @@ class World {
   }
 
   async init() {
-    const {
-      slice1,
-      slice2,
-      slice3,
-      slice4,
-      slice5,
-      slice6
-    } = await loadSlices();
-    console.log('loaded')
+    const ball = await createBall()
+    loop.updatables.push(ball)
+    scene.add(ball)
 
-    const ball = new Object3D();
-
-    slice1.position.z = -50
-
-    slice3.position.z = 25
-    slice3.position.x = -30
-
-    ball.add(slice1)
-    ball.add(slice2)
-    ball.add(slice3)
-    ball.add(slice4)
-    ball.add(slice5)
-    ball.add(slice6)
-
+    // POSITION CAMERA
     const box = new Box3().setFromObject(ball);
     const size = box.getSize(new Vector3()).length();
     const center = box.getCenter();
-    console.log(center)
-    ball.translateZ(0)
-    ball.translateY((size / 4) * -1)
-    scene.add(ball);
-
-    // INTERACTION
-    slice1.on('click', function(e) { state.clicks = "Slice1" });
-    slice2.on('click', function(e) { state.clicks = "Slice2" });
-    slice3.on('click', function(e) { state.clicks = "Slice3" });
-    slice4.on('click', function(e) { state.clicks = "Slice4" });
-    slice5.on('click', function(e) { state.clicks = "Slice5" });
-    slice6.on('click', function(e) { state.clicks = "Slice6" });
-    
-    // Position Camera to GROUP Size
-
 
     camera.near = size / 100;
     camera.far = size * 100;
@@ -121,13 +80,35 @@ class World {
 
     camera.position.copy(center);
     camera.position.x += size / 2.0;
-    camera.position.y += size / 2.0;
-    camera.position.z += size / 2.0;
+    camera.position.y += size / 4.0;
+    camera.position.z += size;
     camera.lookAt(center);
 
-    // environment = await createEnvironment(renderer);
-    // scene.environment = environment
-    // scene.background = environment
+    // INTERACTION
+    const slice1 = ball.children[0]
+    const slice2 = ball.children[1]
+    const slice3 = ball.children[2]
+    const slice4 = ball.children[3]
+    const slice5 = ball.children[4]
+    const slice6 = ball.children[5]
+
+    slice1.position.z = -50
+    slice3.position.z = 25
+    slice3.position.x = -30
+
+    slice1.on('click', function(e) { state.clicks = "Slice1 Click" });
+    slice2.on('click', function(e) { state.clicks = "Slice2 Click" });
+    slice3.on('click', function(e) { state.clicks = "Slice3 Click" });
+    slice4.on('click', function(e) { state.clicks = "Slice4 Click" });
+    slice5.on('click', function(e) { state.clicks = "Slice5 Click" });
+    slice6.on('click', function(e) { state.clicks = "Slice6 Click" });
+
+    slice1.on('mouseover', function(e) { state.clicks = "Slice1 Hover" });
+    slice2.on('mouseover', function(e) { state.clicks = "Slice2 Hover" });
+    slice3.on('mouseover', function(e) { state.clicks = "Slice3 Hover" });
+    slice4.on('mouseover', function(e) { state.clicks = "Slice4 Hover" });
+    slice5.on('mouseover', function(e) { state.clicks = "Slice5 Hover" });
+    slice6.on('mouseover', function(e) { state.clicks = "Slice6 Hover" });
   }
 }
 

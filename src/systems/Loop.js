@@ -14,8 +14,12 @@ class Loop {
   }
 
   start() {
+    this.controls.enableRotate = false
+    // LOOP
     this.renderer.setAnimationLoop(() => {
       this.tick();
+      this.controls.autoRotate = true
+      this.controls.autoRotateSpeed = 1
       this.controls.update();
       this.renderer.render(this.scene, this.camera);
     });
