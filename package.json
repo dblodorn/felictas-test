@@ -13,7 +13,8 @@
     "gsap": "^3.6.0",
     "stats.js": "0.17.0",
     "three": "0.116.1",
-    "three.interaction": "^0.2.3"
+    "three.interaction": "^0.2.3",
+    "three.interactive": "^1.1.0"
   },
   "devDependencies": {
     "@types/stats.js": "0.17.0",

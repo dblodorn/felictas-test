@@ -1,6 +1,8 @@
 export default {
   // Lights
   clicks: 0,
+  currentSlide: 1,
+  slideCount: 6,
   lights: {
     addLights: true,
     exposure: 3.0,

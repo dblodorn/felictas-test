@@ -10,17 +10,16 @@ class Loop {
     this.scene = scene;
     this.renderer = renderer;
     this.updatables = [];
-    this.controls = new OrbitControls(camera, renderer.domElement);
+    // this.controls = new OrbitControls(camera, renderer.domElement);
   }
 
   start() {
-    this.controls.enableRotate = false
-
+    // this.controls.enableRotate = false
     this.renderer.setAnimationLoop(() => {
       this.tick();
-      this.controls.autoRotate = true
-      this.controls.autoRotateSpeed = 1
-      this.controls.update();
+      // this.controls.autoRotate = false
+      // this.controls.autoRotateSpeed = 1
+      // this.controls.update();
       this.renderer.render(this.scene, this.camera);
     });
   }

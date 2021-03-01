@@ -47,3 +47,10 @@ canvas:focus {
   background-color: var(--chat-container-bg-color);
   padding: 20px;
 }
+
+#nav-container {
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 12000;
+}

@@ -2,13 +2,12 @@ import { PerspectiveCamera } from "three";
 
 function createCamera(container) {
   const camera = new PerspectiveCamera(
-    60,
+    75,
     container.innerWidth / container.innerHeight,
     0.01,
-    2000
+    1000
   );
-  camera.position.set(0, 300, 300);
-
+  camera.position.z = 5;
   return camera;
 }
 
