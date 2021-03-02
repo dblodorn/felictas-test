@@ -54,3 +54,10 @@ canvas:focus {
   left: 1rem;
   z-index: 12000;
 }
+
+#slide-buttons {
+  position: fixed;
+  bottom: 1rem;
+  right: calc(1rem + var(--chat-container-width));
+  z-index: 12000;
+}

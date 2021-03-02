@@ -53,12 +53,12 @@ class World {
 
     // CUBES
     const cubes = {
-      cube1: createCube({x: 0, y: 10, z: 10.01, color: 'blue', speed: 0.01}),
-      cube2: createCube({x: 16, y: -30, z: -6, color: 'purple', speed: 0.005}),
-      cube3: createCube({x: 32, y: -40, z: 3, color: 'yellow', speed: 0.02}),
-      cube4: createCube({x: 48, y: 5, z: 1, color: 'green', speed: 0.015}),
-      cube5: createCube({x: 64, y: 2, z: -2, color: 'red', speed: 0.009}),
-      cube6: createCube({x: 80, y: 0, z: 0.01, color: 'orange', speed: 0.003}),
+      cube1: createCube({x: 0, y: 10, z: 10.01, color: 'blue', speed: 0.01, name: 'Scene 1'}),
+      cube2: createCube({x: 16, y: -30, z: -6, color: 'purple', speed: 0.005, name: 'Scene 2'}),
+      cube3: createCube({x: 32, y: -40, z: 3, color: 'yellow', speed: 0.02, name: 'Scene 3'}),
+      cube4: createCube({x: 48, y: 5, z: 1, color: 'green', speed: 0.015, name: 'Scene 4'}),
+      cube5: createCube({x: 64, y: 2, z: -2, color: 'red', speed: 0.009, name: 'Scene 5'}),
+      cube6: createCube({x: 80, y: 0, z: 0.01, color: 'orange', speed: 0.003, name: 'Scene 6'}),
     }
 
     loop.updatables.push(cubes.cube1)
@@ -82,8 +82,16 @@ class World {
     // PREV NEXT
     const next = document.getElementById('next');
     const prev = document.getElementById('prev');
+    const one = document.getElementById('one');
+    const two = document.getElementById('two');
+    const three = document.getElementById('three');
+    const four = document.getElementById('four');
+    const five = document.getElementById('five');
+    const six = document.getElementById('six');
 
     const motionHandler = (object, speed) => {
+      console.log(object)
+      state.clicks = object.name
       gsap.to(camera.position, speed || 2, {
         x: object.position.x,
         y: object.position.y,
@@ -131,6 +139,13 @@ class World {
 
     next.addEventListener('click', nextHandler)
     prev.addEventListener('click', prevHandler)
+
+    one.addEventListener('click', () => motionHandler(cubes.cube1, 3))
+    two.addEventListener('click', () => motionHandler(cubes.cube2, 3))
+    three.addEventListener('click', () => motionHandler(cubes.cube3, 3))
+    four.addEventListener('click', () => motionHandler(cubes.cube4, 3))
+    five.addEventListener('click', () => motionHandler(cubes.cube5, 3))
+    six.addEventListener('click', () => motionHandler(cubes.cube6, 3)) 
 
     const resizer = new Resizer(container, camera, renderer);
   }
