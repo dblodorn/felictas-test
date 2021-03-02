@@ -71,7 +71,7 @@ class World {
     for (const [name, object] of Object.entries(cubes)) {
       object.addEventListener("click", (event) => {
         event.stopPropagation();
-        console.log(`${name} cube was clicked`);
+        alert(`${object.name} was clicked`);
       });
       interactionManager.add(object);
       scene.add(object);
@@ -183,8 +183,6 @@ class World {
     camera.position.z += size;
     camera.lookAt(center);
     */
-
-
   }
 }
 
